@@ -22,6 +22,7 @@ class Service {
         try {
             image = await ImageService.getImage(url);
             console.log(image)
+            //ctx.body = image.pngStream()
             ctx.body = image
           } catch (e) {
             logger.error(e);
