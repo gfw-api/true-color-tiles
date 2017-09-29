@@ -15,14 +15,13 @@ class Service {
         const x = ctx.params.x
         const y = ctx.params.y
 
-        var url = 'http://farm8.staticflickr.com/7333/11286633486_070f0d33bc_n.jpg';
+        //var url = 'http://farm8.staticflickr.com/7333/11286633486_070f0d33bc_n.jpg';
+        var url = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/' + z + '/' + x + '/' + y + '.png'
 
         let image;
 
         try {
             image = await ImageService.getImage(url);
-            console.log(image)
-            //ctx.body = image.pngStream()
             ctx.body = image
           } catch (e) {
             logger.error(e);
