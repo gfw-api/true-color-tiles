@@ -1,5 +1,6 @@
 const logger = require('logger');
 const Canvas = require('canvas')
+const d3 = require('d3')
 const rp = require('request-promise');
 
 
@@ -40,9 +41,39 @@ class ImageService {
   return data
 }
 
+static decodeLoss (data, z) {
 
-  static async getImage(url) {
+  var exp = z < 11 ? 0.3 + ((z - 3) / 20) : 1;
+
+  var myscale = d3.scalePow()
+          .exponent(exp)
+          .domain([0,256])
+          .range([0,256]);
+
+for (var i = 0; i < data.length; i += 4) {
+
+  if (data[i + 2]  > 0) {
+
+      var intensity = data[i]
+
+      data[i] = 220
+      data[i + 1] = (72 - z) + 102 - (3 * myscale(intensity) / z);
+      data[i + 2] = (33 - z) + 153 - ((intensity) / z);
+      data[i + 3] = z < 13 ? myscale(intensity) : intensity;
+
+  }  else {
+    data[i + 3] = 0
+  }
+}
+
+return data
+}
+
+  static async getImage(params) {
     logger.info('Getting url');
+
+    var url = params.baseUrl + params.z + '/' + params.x + '/' + params.y + '.png'
+
     const team = await rp({ url: url, encoding: null }, function(err, res, body) {
         if (err) throw err;
 
@@ -57,10 +88,13 @@ class ImageService {
         ctx.drawImage(img, 0, 0);
         var I = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-        ImageService.decodeGLAD(I.data)
-        ctx.putImageData(I, 0, 0)
+        if (params.layer === 'glad') {
+            ImageService.decodeGLAD(I.data)
+          } else {
+            ImageService.decodeLoss(I.data, params.z)
+        }
 
-        console.log(img.width, img.height)
+        ctx.putImageData(I, 0, 0)
 
     return canvas.toBuffer()
   });

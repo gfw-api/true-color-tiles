@@ -15,13 +15,21 @@ class Service {
         const x = ctx.params.x
         const y = ctx.params.y
 
-        //var url = 'http://farm8.staticflickr.com/7333/11286633486_070f0d33bc_n.jpg';
-        var url = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/' + z + '/' + x + '/' + y + '.png'
+        switch (ctx.params.layer) {
+          case 'glad':
+            ctx.params.baseUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/'
+            break
+          case 'loss':
+            ctx.params.baseUrl = 'http://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc30/'
+            break
+          default:
+            ctx.throw(400, 'Wrong layer parameter supplied, should be loss or glad');
+        }
 
         let image;
 
         try {
-            image = await ImageService.getImage(url);
+            image = await ImageService.getImage(ctx.params);
             ctx.body = image
           } catch (e) {
             logger.error(e);
