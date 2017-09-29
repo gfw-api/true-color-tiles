@@ -1,0 +1,12 @@
+{
+     "logger": {
+        "name": "true-color-tiles-DEV",
+        "level": "debug",
+        "toFile": false,
+        "dirLogFile": null
+    },
+    "service": {
+        "name": "True Color Tiles",
+        "port": 3547
+    }
+}
