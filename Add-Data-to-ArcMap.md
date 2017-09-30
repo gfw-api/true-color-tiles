@@ -3,12 +3,12 @@
 
 #### Grab your URL
 
-##### Loss:
+`Loss`:
 
-http://staging-api.globalforestwatch.org/v1/true-color-tiles/loss/{z}/{x}/{y}
+http://staging-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}
 
-##### GLAD:
-http://staging-api.globalforestwatch.org/v1/true-color-tiles/glad/{z}/{x}/{y}
+`GLAD`:
+http://staging-api.globalforestwatch.org/v1/true-color-tiles/glad/{level}/{col}/{row}
 
 
 #### Add to ArcGIS Online
@@ -26,11 +26,11 @@ Save map, then browse to it (ArcGIS menu  --> `Content`).
 
 #### Download the pkinfo file to view in ArcMap
 
-On the `Content` page, click on the name of the map to download. Then click the `Open in ArcGIS Desktop link`.
+On the `Content` page, click on the name of the map to download. Then click the `Open in ArcGIS Desktop` link.
 
 ![Step3](images/step3.png)
 
-This should download an XML file that looks like this:
+This should download an item.pkinfo XML file that looks like this:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
