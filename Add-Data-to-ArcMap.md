@@ -5,16 +5,16 @@
 
 `Loss`:
 
-http://staging-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}
+http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}
 
 `GLAD`:
 
-http://staging-api.globalforestwatch.org/v1/true-color-tiles/glad/{level}/{col}/{row}
+http://production-api.globalforestwatch.org/v1/true-color-tiles/glad/{level}/{col}/{row}
 
 #### Include query parameters if you want to filter the loss data
 
 Append them to the end of the loss URL like so:
-http://staging-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}?thresh=75&startYear=2005&endYear=2008
+http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}?thresh=75&startYear=2005&endYear=2008
 
 The above (appending ?thresh=75&startYear=2005&endYear=2008 to the loss URL) will return only data from 2005 - 2008 (inclusive) with thresh >75, just like on the flagship website.
 
