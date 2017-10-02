@@ -41,7 +41,18 @@ class ImageService {
   return data
 }
 
-static decodeLoss (data, z) {
+static yearToInt (yearStr) {
+  return parseInt(yearStr.slice(-2));
+}
+
+static decodeLoss (data, ctx) {
+
+  var z = ctx.params.z
+  var q = ctx.query
+  console.log(q)
+
+  var startYear = (q.startYear === undefined) ? 0 : ImageService.yearToInt(q.startYear);
+  var endYear = (q.endYear === undefined) ? 100 : ImageService.yearToInt(q.endYear);
 
   var exp = z < 11 ? 0.3 + ((z - 3) / 20) : 1;
 
@@ -50,9 +61,11 @@ static decodeLoss (data, z) {
           .domain([0,256])
           .range([0,256]);
 
-for (var i = 0; i < data.length; i += 4) {
+  console.log(typeof(startYear))
 
-  if (data[i + 2]  > 0) {
+  for (var i = 0; i < data.length; i += 4) {
+
+    if (endYear >= data[i + 2] && data[i + 2] >= startYear) {
 
       var intensity = data[i]
 
@@ -61,16 +74,18 @@ for (var i = 0; i < data.length; i += 4) {
       data[i + 2] = (33 - z) + 153 - ((intensity) / z);
       data[i + 3] = z < 13 ? myscale(intensity) : intensity;
 
-  }  else {
-    data[i + 3] = 0
+    }  else {
+      data[i + 3] = 0
+    }
   }
-}
 
 return data
 }
 
-  static async getImage(params) {
+  static async getImage(reqCtx) {
     logger.info('Getting url');
+
+    var params = reqCtx.params
 
     var url = params.baseUrl + params.z + '/' + params.x + '/' + params.y + '.png'
 
@@ -89,9 +104,9 @@ return data
         var I = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
         if (params.layer === 'glad') {
-            ImageService.decodeGLAD(I.data)
+            ImageService.decodeGLAD(I.data, reqCtx)
           } else {
-            ImageService.decodeLoss(I.data, params.z)
+            ImageService.decodeLoss(I.data, reqCtx)
         }
 
         ctx.putImageData(I, 0, 0)
@@ -101,4 +116,5 @@ return data
     return team;
   }
 }
+
 module.exports = ImageService;
