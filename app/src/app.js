@@ -34,8 +34,7 @@ app.use(async (ctx, next) => {
         if (process.env.NODE_ENV === 'prod' && this.status === 500) {
             ctx.body = 'Unexpected error';
         }
-        //ctx.response.type = 'application/vnd.api+json';
-        ctx.response.type = 'image/png';
+        ctx.response.type = 'application/vnd.api+json';
     }
 
 });

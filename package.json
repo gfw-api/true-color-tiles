@@ -40,6 +40,7 @@
     "canvas": "1.6.7",
     "config": "^1.21.0",
     "ct-register-microservice-node": "2.1.2",
+    "d3": "^4.0.0",
     "jsonapi-serializer": "2.1.1",
     "kcors": "^2.1.1",
     "koa": "^2.0.0",
