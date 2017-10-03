@@ -1,44 +1,35 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-
 	<title>Quick Start - Leaflet</title>
-
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
-
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
-
-
-
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="docs/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+	<link href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" rel="stylesheet">
+	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-hash/0.2.1/leaflet-hash.min.js"></script>
 </head>
 <body>
+	<div id="mapid" style="width: 800px; height: 600px;"></div>
+	<script>
 
+	   var mymap = L.map('mapid').setView([15, -60], 4);
+		 var hash = new L.Hash(mymap);
 
-
-<div id="mapid" style="width: 800px; height: 600px;"></div>
-<script>
-
-	var mymap = L.map('mapid').setView([15, -60], 4);
-
-
-
-	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	maxZoom: 19,
-}).addTo(mymap);
-
-	L.tileLayer('http://localhost:9000/v1/true-color-tiles/loss/{z}/{x}/{y}?thresh=75&startYear=2010&endYear=2016', {
-		maxZoom:12
-
+	   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	   maxZoom: 19,
 	}).addTo(mymap);
 
-</script>
+	   var loss = L.tileLayer('http://localhost:9000/v1/true-color-tiles/loss/{z}/{x}/{y}?thresh=75&startYear=2010&endYear=2016', {
+	       maxZoom:19
+	   }).addTo(mymap)
 
+	   var glad = L.tileLayer('http://localhost:9000/v1/true-color-tiles/glad/{z}/{x}/{y}', {
+	       maxZoom:19
+	   })
 
+	   L.control.layers({'Loss': loss, 'GLAD': glad}, null).addTo(mymap);
 
+	</script>
 </body>
 </html>
