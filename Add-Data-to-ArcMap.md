@@ -62,7 +62,7 @@ This should download an item.pkinfo XML file that looks like this:
 
 Given the WGS84 --> Web Mercator projection, these tiles are not recommended for zoom levels > than 12. In short, if you need to see individual pixels, use the Hansen tiles themselves.
 
-One unexpected bonus of Arc is that even though we don't have tiles at zoom levels > 12,  it will extrapolate these tiles. This let's us see the Hansen data at any zoom level in Arc. Cool!
+I've updated the microservice to scale tiles, so you should be able to see pixels at high zoom levels (> 12) in any client. Let me know if this isn't the case.
 
 #### Future development
 
