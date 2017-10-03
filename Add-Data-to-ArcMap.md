@@ -5,10 +5,20 @@
 
 `Loss`:
 
-http://staging-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}
+http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}
 
 `GLAD`:
-http://staging-api.globalforestwatch.org/v1/true-color-tiles/glad/{level}/{col}/{row}
+
+http://production-api.globalforestwatch.org/v1/true-color-tiles/glad/{level}/{col}/{row}
+
+#### Include query parameters if you want to filter the loss data
+
+Append them to the end of the loss URL like so:
+http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}?thresh=75&startYear=2005&endYear=2008
+
+The above (appending ?thresh=75&startYear=2005&endYear=2008 to the loss URL) will return only data from 2005 - 2008 (inclusive) with thresh >75, just like on the flagship website.
+
+I'm happy to add filtering options to GLAD as well-- let me know if this is of interest.
 
 
 #### Add to ArcGIS Online
@@ -56,9 +66,4 @@ One unexpected bonus of Arc is that even though we don't have tiles at zoom leve
 
 #### Future development
 
-We don't currently have the ability to filter data by year/date/confidence level, but this could be added to a later release. Let me know if this would be of interest!
-
-
-
-
-
+Happy to add Terra I to this as well, and to add date filtering to GLAD as well. Let me know if this is of interest.
