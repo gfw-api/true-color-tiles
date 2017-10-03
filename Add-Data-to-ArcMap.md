@@ -5,16 +5,16 @@
 
 `Loss`:
 
-http://staging-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}
+http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}
 
 `GLAD`:
 
-http://staging-api.globalforestwatch.org/v1/true-color-tiles/glad/{level}/{col}/{row}
+http://production-api.globalforestwatch.org/v1/true-color-tiles/glad/{level}/{col}/{row}
 
 #### Include query parameters if you want to filter the loss data
 
 Append them to the end of the loss URL like so:
-http://staging-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}?thresh=75&startYear=2005&endYear=2008
+http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}?thresh=75&startYear=2005&endYear=2008
 
 The above (appending ?thresh=75&startYear=2005&endYear=2008 to the loss URL) will return only data from 2005 - 2008 (inclusive) with thresh >75, just like on the flagship website.
 
@@ -62,7 +62,7 @@ This should download an item.pkinfo XML file that looks like this:
 
 Given the WGS84 --> Web Mercator projection, these tiles are not recommended for zoom levels > than 12. In short, if you need to see individual pixels, use the Hansen tiles themselves.
 
-One unexpected bonus of Arc is that even though we don't have tiles at zoom levels > 12,  it will extrapolate these tiles. This let's us see the Hansen data at any zoom level in Arc. Cool!
+I've updated the microservice to scale tiles, so you should be able to see pixels at high zoom levels (> 12) in any client. Let me know if this isn't the case.
 
 #### Future development
 

@@ -18,7 +18,7 @@ class Service {
         switch (ctx.params.layer) {
 
           case 'glad':
-            ctx.params.baseUrl = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/'
+            ctx.params.urlTemplate = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/%z/%y/%x.png'
             break
 
           case 'loss':
@@ -31,7 +31,8 @@ class Service {
               ctx.throw('Thresh supplied not in ' + threshVals)
             }
 
-            ctx.params.baseUrl = 'http://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc' + thresh + '/'
+            var url = 'http://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png'
+            ctx.params.urlTemplate = url.replace('%thresh', thresh)
             break
 
           default:
