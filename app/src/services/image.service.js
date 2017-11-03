@@ -62,7 +62,7 @@ static decodeLoss (data, ctx) {
 
   for (var i = 0; i < data.length; i += 4) {
 
-    if (endYear <= data[i + 2] && data[i + 2] >= startYear) {
+    if (endYear >= data[i + 2] && data[i + 2] >= startYear) {
 
       var intensity = data[i]
 
