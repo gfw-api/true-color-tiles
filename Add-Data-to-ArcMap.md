@@ -18,7 +18,7 @@ http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{co
 
 The above (appending ?thresh=75&startYear=2005&endYear=2008 to the loss URL) will return only data from 2005 - 2008 (inclusive) with thresh >75, just like on the flagship website.
 
-I'm happy to add filtering options to GLAD as well-- let me know if this is of interest.
+Filtering by query parameter is not currently available for GLAD. If this is something you'd like me to implement, please let me know.
 
 
 #### Add to ArcGIS Online
