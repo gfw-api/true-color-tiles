@@ -1,13 +1,17 @@
-# Node Skeleton Microservice
+# True Color Tiles Microservice
 
+This repository moves the dynamic pixel showing/hiding/recoloring magic from the GFW flagship site to the server-side, making true color loss and GLAD tiles more easily available.
 
-This repository is the node skeleton microservice to create node microservice for WRI API
+To demo this service, try adding the following to the map on http://geojson.io (Meta -> Add Map Layer):
+http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{z}/{x}/{y}?thresh=75&startYear=2005&endYear=2008
 
-1. [Getting Started](#getting-started)
+The above will add loss tiles to the geojson.io map, filtering to show only data from 2005 - 2008 where thresh >=75.
 
-## Getting Started
+This is the same mechanism that the flagship performs when users change the timeline and the TCD threshold of interest.
 
-### OS X
+For an example of adding zoomable loss/glad tiles to ArcMap, see [Add-Data-to-ArcMap.md](Add-Data-to-ArcMap.md)
+
+### Running locally on OS X
 
 **First, make sure that you have the [API gateway running
 locally](https://github.com/control-tower/control-tower).**
@@ -18,19 +22,7 @@ that you have [Docker Compose](https://docs.docker.com/compose/install/)
 installed on your machine.
 
 ```
-git clone https://github.com/Vizzuality/node-skeleton
-cd node-skeleton
-./service.sh develop
-./service.sh test
-```text
-
-You can now access the microservice through the CT gateway.
-
+git clone https://github.com/gfw-api/true-color-tiles
+cd true-color-tiles
+./true-color-tiles.sh develop
 ```
-
-### Configuration
-
-It is necessary to define these environment variables:
-
-* CT_URL => Control Tower URL
-* NODE_ENV => Environment (prod, staging, dev)
