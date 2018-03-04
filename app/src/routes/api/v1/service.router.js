@@ -17,22 +17,48 @@ class Service {
 
         switch (ctx.params.layer) {
 
+          // REACH THROUGH : http://mymachine:9000/v1/true-color-tiles/glad/{z}/{x}/{y}
           case 'glad':
             ctx.params.urlTemplate = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/%z/%y/%x.png'
             break
 
+          // REACH THROUGH : http://mymachine:9000/v1/true-color-tiles/loss/{z}/{x}/{y}
           case 'loss':
-            const thresh = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
+            const thresh_loss = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
 
+            console.log('query')
+            console.log(ctx.query)
             var threshVals = [10, 15, 20, 25, 30, 50, 75]
-            var validThresh = threshVals.includes(parseInt(thresh))
+            var validThresh = threshVals.includes(parseInt(thresh_loss))
 
             if (!validThresh) {
               ctx.throw('Thresh supplied not in ' + threshVals)
             }
 
-            var url = 'http://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png'
-            ctx.params.urlTemplate = url.replace('%thresh', thresh)
+            var url = 'http://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc%threshold/%z/%y/%x.png'
+            ctx.params.urlTemplate = url.replace('%threshold', thresh_loss)
+            console.log(ctx.params.urlTemplate)
+            break
+
+          // REACH THROUGH: http://mymachine:9000/v1/true-color-tiles/whrc-carbon-loss/{z}/{x}/{y}
+          case 'whrc-carbon-loss':
+            const thresh_whrc = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
+
+            logger.info('query')
+            logger.info(ctx.query)
+            var threshVals = [10, 15, 20, 25, 30, 50, 75]
+            var validThresh = threshVals.includes(parseInt(thresh_whrc))
+
+            if (!validThresh) {
+              ctx.throw('Thresh supplied not in ' + threshVals)
+            }
+
+            // var url = 'http://storage.googleapis.com/earthenginepartners-wri/whrc-hansen-carbon-%threshold-%z/%x/%y.png'
+            // hardcode threshold at 30
+            var url = 'http://storage.googleapis.com/earthenginepartners-wri/whrc-hansen-carbon-%threshold-%z/%x/%y.png'
+
+            ctx.params.urlTemplate = url.replace('%threshold', thresh_whrc)
+            logger.info(ctx.params.urlTemplate)
             break
 
           default:
