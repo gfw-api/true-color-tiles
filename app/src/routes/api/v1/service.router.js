@@ -48,9 +48,9 @@ class Service {
 
           case 'whrc-carbon-loss':
             const thresh_whrc = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
-            const minrange = (q.minrange === undefined) ? 0 : q.minrange;
-            const maxrange = (q.maxrange === undefined) ? 255 : q.maxrange;
-            const ref_uncertainty = (q.uncertainty === undefined) ? 127 : q.uncertainty;
+            const minrange = (ctx.query.minrange === undefined) ? 0 : ctx.query.minrange;
+            const maxrange = (ctx.query.maxrange === undefined) ? 255 : ctx.query.maxrange;
+            const ref_uncertainty = (ctx.query.uncertainty === undefined) ? 127 : ctx.query.uncertainty;
 
             // Validate parameters
             var threshVals = [10, 15, 20, 25, 30, 50, 75]
@@ -60,7 +60,7 @@ class Service {
               ctx.throw('Thresh supplied not in ' + threshVals)
             }
 
-            if (!(isInt(minrange) & isInt(maxrange) & !isInt(ref_uncertainty)){
+            if (!(isInt(minrange) & isInt(maxrange) & isInt(ref_uncertainty))){
               ctx.throw('minrange, maxrange, and ref_uncertainty must all be integers')
             }
 
