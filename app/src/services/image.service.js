@@ -12,13 +12,8 @@ class ImageService {
   }
 
   static decodeGLAD (data) {
-
     // FROM: https://github.com/Vizzuality/gfw/blob/develop/app/assets/javascripts/map/views/layers/GladLayer.js
-
-    // i -> pixelPos
     for (var i = 0; i < data.length; i += 4) {
-
-      // total -> day
     	var total_days = data[i] * 255 + data[i + 1];
 
       if (total_days > 0) {
@@ -50,7 +45,7 @@ class ImageService {
   }
 
   static decodeLoss (data, ctx) {
-
+    // FROM: https://github.com/Vizzuality/gfw/blob/develop/app/assets/javascripts/map/views/layers/LossLayer.js
     var z = ctx.params.z
     var q = ctx.query
 
@@ -83,18 +78,8 @@ class ImageService {
     return data
   }
 
-
-
   static decodeWHRC(data, ctx) {
-
-    // FROM: https://github.com/Vizzuality/gfw-climate/blob/e5b89021edb8766de83d03419e646edd313ce258/app/assets/javascripts/map/views/layers/CarbonStocksLayer.js
-
-     // "use asm";
-     // We'll force the use of a 32bit integer wit `value |0`
-     // More info here: http://asmjs.org/spec/latest/
-
-
-     // There exist functions in the link above to update these through query params
+     // FROM: https://github.com/Vizzuality/gfw-climate/blob/e5b89021edb8766de83d03419e646edd313ce258/app/assets/javascripts/map/views/layers/CarbonStocksLayer.js
      var q = ctx.query
 
      var minrange = (q.minrange === undefined) ? 0 : q.minrange;
@@ -122,9 +107,6 @@ class ImageService {
          // init set alpha to 0
          data[pixelPos + 3] = 0;
 
-
-         /// WHATS GOING ON HERE?
-
          if(carbonStock >= minrange && carbonStock <= maxrange) {
            if(ref_uncertainty === 0) {
              // min uncertainty subtract the percentage of uncertainty
@@ -134,7 +116,6 @@ class ImageService {
              // max uncertainty sum the uncertainty value
              carbonStock = carbonStock + (uncertainty * carbonStock / 100);
            }
-
 
            // Calc bucket from carbonStock as a factor of bucket number
            var bucket = (carbonStock * countBuckets) / maxrange;

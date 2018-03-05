@@ -2,12 +2,23 @@ const Router = require('koa-router');
 const ImageService = require('services/image.service');
 const logger = require('logger');
 
-
 const router = new Router({
     prefix: '/true-color-tiles',
 });
 
+// https://stackoverflow.com/questions/14636536/how-to-check-if-a-variable-is-an-integer-in-javascript
+function isInt(value) {
+    var x;
+    if (isNaN(value)) {
+      return false;
+    }
+    x = parseFloat(value);
+    return (x | 0) === x;
+  }
+
 class Service {
+
+
 
     static async drawTile(ctx) {
         const layer = ctx.params.layer
@@ -17,17 +28,13 @@ class Service {
 
         switch (ctx.params.layer) {
 
-          // REACH THROUGH : http://mymachine:9000/v1/true-color-tiles/glad/{z}/{x}/{y}
           case 'glad':
             ctx.params.urlTemplate = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/%z/%y/%x.png'
             break
 
-          // REACH THROUGH : http://mymachine:9000/v1/true-color-tiles/loss/{z}/{x}/{y}
           case 'loss':
             const thresh_loss = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
 
-            console.log('query')
-            console.log(ctx.query)
             var threshVals = [10, 15, 20, 25, 30, 50, 75]
             var validThresh = threshVals.includes(parseInt(thresh_loss))
 
@@ -37,15 +44,15 @@ class Service {
 
             var url = 'http://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc%threshold/%z/%y/%x.png'
             ctx.params.urlTemplate = url.replace('%threshold', thresh_loss)
-            console.log(ctx.params.urlTemplate)
             break
 
-          // REACH THROUGH: http://mymachine:9000/v1/true-color-tiles/whrc-carbon-loss/{z}/{y}/{x}
           case 'whrc-carbon-loss':
             const thresh_whrc = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
+            const minrange = (q.minrange === undefined) ? 0 : q.minrange;
+            const maxrange = (q.maxrange === undefined) ? 255 : q.maxrange;
+            const ref_uncertainty = (q.uncertainty === undefined) ? 127 : q.uncertainty;
 
-            logger.info('query')
-            logger.info(ctx.query)
+            // Validate parameters
             var threshVals = [10, 15, 20, 25, 30, 50, 75]
             var validThresh = threshVals.includes(parseInt(thresh_whrc))
 
@@ -53,10 +60,21 @@ class Service {
               ctx.throw('Thresh supplied not in ' + threshVals)
             }
 
+            if (!(isInt(minrange) & isInt(maxrange) & !isInt(ref_uncertainty)){
+              ctx.throw('minrange, maxrange, and ref_uncertainty must all be integers')
+            }
+
+            if ((minrange < 0) | (minrange > 255) | (maxrange < 0) | (maxrange > 255) | (ref_uncertainty < 0) | (ref_uncertainty > 255)) {
+              ctx.throw('minrange, maxrange, and ref_uncertainty must be between 0 and 255')
+            }
+
+            if (minrange > maxrange) {
+              ctx.throw('minrange must be larger than maxrange')
+            }
+
             var url = 'http://storage.googleapis.com/earthenginepartners-wri/whrc-hansen-carbon-%threshold-%z/%y/%x.png'
 
             ctx.params.urlTemplate = url.replace('%threshold', thresh_whrc)
-            logger.info(ctx.params.urlTemplate)
             break
 
           default:
