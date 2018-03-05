@@ -40,7 +40,7 @@ class Service {
             console.log(ctx.params.urlTemplate)
             break
 
-          // REACH THROUGH: http://mymachine:9000/v1/true-color-tiles/whrc-carbon-loss/{z}/{x}/{y}
+          // REACH THROUGH: http://mymachine:9000/v1/true-color-tiles/whrc-carbon-loss/{z}/{y}/{x}
           case 'whrc-carbon-loss':
             const thresh_whrc = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
 
@@ -53,9 +53,7 @@ class Service {
               ctx.throw('Thresh supplied not in ' + threshVals)
             }
 
-            // var url = 'http://storage.googleapis.com/earthenginepartners-wri/whrc-hansen-carbon-%threshold-%z/%x/%y.png'
-            // hardcode threshold at 30
-            var url = 'http://storage.googleapis.com/earthenginepartners-wri/whrc-hansen-carbon-%threshold-%z/%x/%y.png'
+            var url = 'http://storage.googleapis.com/earthenginepartners-wri/whrc-hansen-carbon-%threshold-%z/%y/%x.png'
 
             ctx.params.urlTemplate = url.replace('%threshold', thresh_whrc)
             logger.info(ctx.params.urlTemplate)
