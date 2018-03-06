@@ -128,7 +128,6 @@ class ImageService {
          }
        }
 
-       logger.info('Attempted processing of WHRC image')
        return data
 
    }
@@ -158,16 +157,11 @@ class ImageService {
   }
 
   static async getImage(reqCtx) {
-    logger.info('Getting url');
-
     var params = reqCtx.params
     var url = this._getUrl(params.urlTemplate, this._getTileCoords(params.x, params.y, params.z));
 
-    logger.info("Attempting to fetch image")
-
     const team = await rp({ url: url, encoding: null }, function(err, res, body) {
         if (err) {
-          logger.info('Unable to fetch data')
           throw err;
         }
       }).then(function(body) {
