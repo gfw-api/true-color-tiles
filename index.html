@@ -20,19 +20,15 @@
 	   maxZoom: 19,
 	}).addTo(mymap);
 
-	   var loss = L.tileLayer('http://mymachine:9000/v1/true-color-tiles/loss/{z}/{x}/{y}?thresh=75&startYear=2010&endYear=2016', {
+	   var loss = L.tileLayer('http://localhost:9000/v1/true-color-tiles/loss/{z}/{x}/{y}?thresh=75&startYear=2010&endYear=2016', {
+	       maxZoom:19
+	   }).addTo(mymap)
+
+	   var glad = L.tileLayer('http://localhost:9000/v1/true-color-tiles/glad/{z}/{x}/{y}', {
 	       maxZoom:19
 	   })
 
-	   var glad = L.tileLayer('http://mymachine:9000/v1/true-color-tiles/glad/{z}/{x}/{y}', {
-	       maxZoom:19
-	   })
-
-		 var whrc = L.tileLayer('http://mymachine:9000/v1/true-color-tiles/whrc-carbon-loss/{z}/{x}/{y}?thresh=75&minrange=0&maxrange=255&uncertainty=127', {
-				 maxZoom:19
-		 })
-
-	   L.control.layers({'Loss': loss, 'GLAD': glad, 'WHRC Carbon Loss':whrc}, null).addTo(mymap);
+	   L.control.layers({'Loss': loss, 'GLAD': glad}, null).addTo(mymap);
 
 	</script>
 </body>
