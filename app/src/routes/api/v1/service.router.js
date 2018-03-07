@@ -46,7 +46,7 @@ class Service {
             ctx.params.urlTemplate = url.replace('%threshold', thresh_loss)
             break
 
-          case 'whrc-carbon-loss':
+          case 'whrc-biomass':
             const thresh_whrc = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
             const minrange = (ctx.query.minrange === undefined) ? 0 : ctx.query.minrange;
             const maxrange = (ctx.query.maxrange === undefined) ? 255 : ctx.query.maxrange;

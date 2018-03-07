@@ -194,7 +194,7 @@ class ImageService {
             ImageService.decodeGLAD(I.data)
           } else if (params.layer === 'loss') {
             ImageService.decodeLoss(I.data, reqCtx)
-          } else if (params.layer === 'whrc-carbon-loss') {
+          } else if (params.layer === 'whrc-biomass') {
             ImageService.decodeWHRC(I.data, reqCtx)
         }
 
