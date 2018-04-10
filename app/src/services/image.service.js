@@ -79,6 +79,29 @@ static decodeLoss (data, ctx) {
 return data
 }
 
+static decodeForestCover2010 (data, ctx) {
+  var z = ctx.params.z
+  var components = 4;
+  var exp = z < 11 ? 0.3 + ((z - 3) / 20) : 1;
+
+  var myscale = d3.scale.pow()
+        .exponent(exp)
+        .domain([0,256])
+        .range([0,256]);
+
+  for (var i = 0; i < data.length; i += 4) {
+
+      var intensity = data[i+1];
+
+      data[i] = 151;
+      data[i + 1] = 189;
+      data[i + 2] = 61;
+
+      data[i + 3] = z < 13 ? myscale(intensity)*0.8 : intensity*0.8;
+    }
+    return data
+ }
+
   static _getUrl (urlTemplate, coords) {
 	   return urlTemplate.replace('%z', coords[2]).replace('%x', coords[1]).replace('%y', coords[0]);
   }
@@ -140,8 +163,10 @@ return data
 
         if (params.layer === 'glad') {
             ImageService.decodeGLAD(I.data, reqCtx)
-          } else {
+          } else if (params.layer === 'loss') {
             ImageService.decodeLoss(I.data, reqCtx)
+        } else {
+          ImageService.decodeForestCover2010(I.data, reqCtx)
         }
 
         ctx.putImageData(I, 0, 0);
