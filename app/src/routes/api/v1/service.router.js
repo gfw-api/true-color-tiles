@@ -35,7 +35,8 @@ class Service {
             ctx.params.urlTemplate = url.replace('%thresh', thresh)
             break
 
-          case 'treeCover2010':
+
+          case 'treecover':
             ctx.params.urlTemplate = 'https://storage.googleapis.com/wri-public/treecover/2010/50{/z}{/x}{/y}.png'
             break
 
