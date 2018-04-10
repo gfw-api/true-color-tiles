@@ -35,6 +35,10 @@ class Service {
             ctx.params.urlTemplate = url.replace('%thresh', thresh)
             break
 
+          case 'treeCover2010':
+            ctx.params.urlTemplate = 'https://storage.googleapis.com/wri-public/treecover/2010/50{/z}{/x}{/y}.png'
+            break
+
           default:
             ctx.throw(400, 'Wrong layer parameter supplied, should be loss or glad');
         }
