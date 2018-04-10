@@ -37,7 +37,7 @@ class Service {
 
 
           case 'treecover':
-            ctx.params.urlTemplate = 'https://storage.googleapis.com/wri-public/treecover/2010/50/%z/%y/%x.png'
+            ctx.params.urlTemplate = 'https://storage.googleapis.com/wri-public/treecover/2010/30/%z/%y/%x.png'
             break
 
           default:
