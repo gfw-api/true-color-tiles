@@ -81,7 +81,6 @@ return data
 
 static decodeForestCover2010 (data, ctx) {
   var z = ctx.params.z
-  var components = 4;
   var exp = z < 11 ? 0.3 + ((z - 3) / 20) : 1;
 
   var myscale = d3.scale.pow()
