@@ -36,8 +36,18 @@ class Service {
             break
 
 
-          case 'treecover':
-            ctx.params.urlTemplate = 'https://storage.googleapis.com/wri-public/treecover/2010/50/%z/%y/%x.png'
+          case 'treeCover2010':
+
+            const thresh = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
+
+            var threshVals = [10, 15, 20, 25, 30, 50, 75]
+            var validThresh = threshVals.includes(parseInt(thresh))
+
+            if (!validThresh) {
+              ctx.throw('Thresh supplied not in ' + threshVals)
+            }
+            var url = 'https://storage.googleapis.com/wri-public/treecover/2010/%thresh/%z/%y/%x.png'
+            ctx.params.urlTemplate = url.replace('%thresh', thresh)
             break
 
           default:
