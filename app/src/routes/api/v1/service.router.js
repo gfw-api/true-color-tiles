@@ -22,14 +22,7 @@ class Service {
             break
 
           case 'loss':
-            const thresh = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
-
-            var threshVals = [10, 15, 20, 25, 30, 50, 75]
-            var validThresh = threshVals.includes(parseInt(thresh))
-
-            if (!validThresh) {
-              ctx.throw('Thresh supplied not in ' + threshVals)
-            }
+            var thresh = Service.validateThresh(thresh, ctx)
 
             var url = 'http://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png'
             ctx.params.urlTemplate = url.replace('%thresh', thresh)
@@ -37,11 +30,21 @@ class Service {
 
 
           case 'treecover':
-            ctx.params.urlTemplate = 'https://storage.googleapis.com/wri-public/treecover/2010/50/%z/%y/%x.png'
+            var thresh = Service.validateThresh(thresh, ctx)
+
+            var url = 'https://earthengine.google.org/static/hansen_2014/gfw_loss_tree_year_%thresh_2014/%z/%y/%x.png'
+            ctx.params.urlTemplate = url.replace('%thresh', thresh)
+            break
+
+          case 'treecover2010':
+            var thresh = Service.validateThresh(thresh, ctx)
+
+            var url = 'https://storage.googleapis.com/wri-public/treecover/2010/%thresh/%z/%y/%x.png'
+            ctx.params.urlTemplate = url.replace('%thresh', thresh)
             break
 
           default:
-            ctx.throw(400, 'Wrong layer parameter supplied, should be loss or glad');
+            ctx.throw(400, 'Wrong layer parameter supplied, should be loss, treecover, treecover2010 or glad');
         }
 
         let image;
@@ -55,6 +58,20 @@ class Service {
           }
 
     }
+
+  static validateThresh(thresh, ctx) {
+
+    var thresh = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
+
+    var threshVals = [10, 15, 20, 25, 30, 50, 75]
+    var validThresh = threshVals.includes(parseInt(thresh))
+
+    if (!validThresh) {
+      ctx.throw('Thresh supplied not in ' + threshVals)
+    }
+
+    return thresh
+  }
 
 }
 
