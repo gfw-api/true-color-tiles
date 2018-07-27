@@ -18,7 +18,7 @@ class Service {
         switch (ctx.params.layer) {
 
           case 'glad':
-            ctx.params.urlTemplate = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/%z/%y/%x.png'
+            ctx.params.urlTemplate = 'https://d178s5l0vmo3yy.cloudfront.net/glad_staging/tiles/%z/%y/%x.png'
             break
 
           case 'loss':
