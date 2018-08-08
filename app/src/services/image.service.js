@@ -17,7 +17,7 @@ class ImageService {
 
     	var total_days = data[i] * 255 + data[i + 1];
 
-      if (total_days > 0) {
+      if  (total_days > 0) {
 
       	var band3_str = ImageService.pad(data[i+2].toString());
       	var confidence = parseInt(band3_str[0]) - 1
@@ -28,10 +28,14 @@ class ImageService {
       	  intensity = 255
       	}
 
+        if (confidence === 1) {
           data[i] = 220
     		  data[i + 1] = 102,
     		  data[i + 2] = 153
     		  data[i + 3] = intensity
+        } else {
+          data[i + 3] = 0
+        }
 
       }  else {
         data[i + 3] = 0

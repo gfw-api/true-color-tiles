@@ -40,6 +40,10 @@
 											 'Loss': loss,
 											 'GLAD': glad}, null).addTo(mymap);
 
+
+		var aoi = {"type":"FeatureCollection","features":[{"geometry":{"coordinates":[[[-69.9609375,-13.068776734357689],[-69.9609375,-12.983147716796571],[-69.873046875,-12.983147716796571],[-69.873046875,-13.068776734357689],[-69.9609375,-13.068776734357689]]],"type":"Polygon"},"properties":{"title":"XYZ tile (1252, 2197, 12)"},"type":"Feature"}]}
+		L.geoJSON(aoi).addTo(mymap);
+
 	</script>
 </body>
 </html>
