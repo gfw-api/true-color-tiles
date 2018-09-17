@@ -23,16 +23,18 @@
 
 	   var loss = L.tileLayer('http://localhost:9000/v1/true-color-tiles/loss/{z}/{x}/{y}?thresh=75&startYear=2010&endYear=2016', {
 	       maxZoom:19
-	   }).addTo(mymap)
+	   })
 
 	   var glad = L.tileLayer('http://localhost:9000/v1/true-color-tiles/glad/{z}/{x}/{y}', {
 	       maxZoom:19
-	   })
-	   var treeCover = L.tileLayer('http://localhost:9000/v1/true-color-tiles/treecover/{z}/{x}/{y}', {
-	       maxZoom:19
-	   })
+	   }).addTo(mymap)
 
-	   L.control.layers({'Treecover2010': treeCover, 'Loss': loss, 'GLAD': glad}, null).addTo(mymap);
+	   L.control.layers({'Loss': loss,
+											 'GLAD': glad}, null).addTo(mymap);
+
+
+		var aoi = {"type":"FeatureCollection","features":[{"geometry":{"coordinates":[[[-69.9609375,-13.068776734357689],[-69.9609375,-12.983147716796571],[-69.873046875,-12.983147716796571],[-69.873046875,-13.068776734357689],[-69.9609375,-13.068776734357689]]],"type":"Polygon"},"properties":{"title":"XYZ tile (1252, 2197, 12)"},"type":"Feature"}]}
+		L.geoJSON(aoi).addTo(mymap);
 
 	</script>
 </body>

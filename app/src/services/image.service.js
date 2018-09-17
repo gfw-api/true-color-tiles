@@ -17,7 +17,7 @@ class ImageService {
 
     	var total_days = data[i] * 255 + data[i + 1];
 
-      if (total_days > 0) {
+      if  (total_days > 0) {
 
       	var band3_str = ImageService.pad(data[i+2].toString());
       	var confidence = parseInt(band3_str[0]) - 1
@@ -28,10 +28,14 @@ class ImageService {
       	  intensity = 255
       	}
 
+        if (confidence === 1) {
           data[i] = 220
     		  data[i + 1] = 102,
     		  data[i + 2] = 153
     		  data[i + 3] = intensity
+        } else {
+          data[i + 3] = 0
+        }
 
       }  else {
         data[i + 3] = 0
@@ -78,28 +82,6 @@ static decodeLoss (data, ctx) {
 
 return data
 }
-
-static decodeForestCover2010 (data, ctx) {
-  var z = ctx.params.z
-  var exp = z < 11 ? 0.3 + ((z - 3) / 20) : 1;
-
-  var myscale = d3.scalePow()
-        .exponent(exp)
-        .domain([0,256])
-        .range([0,256]);
-
-  for (var i = 0; i < data.length; i += 4) {
-
-      var intensity = data[i+1];
-
-      data[i] = 151;
-      data[i + 1] = 189;
-      data[i + 2] = 61;
-
-      data[i + 3] = z < 13 ? myscale(intensity)*0.8 : intensity*0.8;
-    }
-    return data
- }
 
   static _getUrl (urlTemplate, coords) {
 	   return urlTemplate.replace('%z', coords[2]).replace('%x', coords[1]).replace('%y', coords[0]);
@@ -162,11 +144,9 @@ static decodeForestCover2010 (data, ctx) {
 
         if (params.layer === 'glad') {
             ImageService.decodeGLAD(I.data, reqCtx)
-          } else if (params.layer === 'loss') {
+          } else {
             ImageService.decodeLoss(I.data, reqCtx)
-        } else {
-          ImageService.decodeForestCover2010(I.data, reqCtx)
-        }
+          }
 
         ctx.putImageData(I, 0, 0);
 

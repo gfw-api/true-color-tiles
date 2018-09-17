@@ -22,22 +22,10 @@ class Service {
             break
 
           case 'loss':
-            const thresh = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
+            var thresh = Service.validateThresh(thresh, ctx)
 
-            var threshVals = [10, 15, 20, 25, 30, 50, 75]
-            var validThresh = threshVals.includes(parseInt(thresh))
-
-            if (!validThresh) {
-              ctx.throw('Thresh supplied not in ' + threshVals)
-            }
-
-            var url = 'http://storage.googleapis.com/wri-public/Hansen_16/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png'
+            var url = 'http://storage.googleapis.com/wri-public/Hansen17/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png'
             ctx.params.urlTemplate = url.replace('%thresh', thresh)
-            break
-
-
-          case 'treecover':
-            ctx.params.urlTemplate = 'https://storage.googleapis.com/wri-public/treecover/2010/30/%z/%y/%x.png'
             break
 
           default:
@@ -55,6 +43,20 @@ class Service {
           }
 
     }
+
+  static validateThresh(thresh, ctx) {
+
+    var thresh = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
+
+    var threshVals = [10, 15, 20, 25, 30, 50, 75]
+    var validThresh = threshVals.includes(parseInt(thresh))
+
+    if (!validThresh) {
+      ctx.throw('Thresh supplied not in ' + threshVals)
+    }
+
+    return thresh
+  }
 
 }
 
