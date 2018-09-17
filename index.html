@@ -23,21 +23,13 @@
 
 	   var loss = L.tileLayer('http://localhost:9000/v1/true-color-tiles/loss/{z}/{x}/{y}?thresh=75&startYear=2010&endYear=2016', {
 	       maxZoom:19
-	   }).addTo(mymap)
+	   })
 
 	   var glad = L.tileLayer('http://localhost:9000/v1/true-color-tiles/glad/{z}/{x}/{y}', {
 	       maxZoom:19
-	   })
-	   var treeCover2010 = L.tileLayer('http://localhost:9000/v1/true-color-tiles/treecover2010/{z}/{x}/{y}?thresh=75', {
-	       maxZoom:19
-	   })
-	   var treeCover = L.tileLayer('http://localhost:9000/v1/true-color-tiles/treecover/{z}/{x}/{y}?thresh=75', {
-	       maxZoom:19
-	   })
+	   }).addTo(mymap)
 
-	   L.control.layers({'treeCover': treeCover,
-		 									 'Treecover2010': treeCover2010,
-											 'Loss': loss,
+	   L.control.layers({'Loss': loss,
 											 'GLAD': glad}, null).addTo(mymap);
 
 

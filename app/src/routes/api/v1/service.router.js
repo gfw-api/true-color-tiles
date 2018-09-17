@@ -18,7 +18,7 @@ class Service {
         switch (ctx.params.layer) {
 
           case 'glad':
-            ctx.params.urlTemplate = 'https://d178s5l0vmo3yy.cloudfront.net/glad_staging/tiles/%z/%y/%x.png'
+            ctx.params.urlTemplate = 'http://wri-tiles.s3.amazonaws.com/glad_prod/tiles/%z/%y/%x.png'
             break
 
           case 'loss':
@@ -28,23 +28,8 @@ class Service {
             ctx.params.urlTemplate = url.replace('%thresh', thresh)
             break
 
-
-          case 'treecover':
-            var thresh = Service.validateThresh(thresh, ctx)
-
-            var url = 'https://earthengine.google.org/static/hansen_2014/gfw_loss_tree_year_%thresh_2014/%z/%y/%x.png'
-            ctx.params.urlTemplate = url.replace('%thresh', thresh)
-            break
-
-          case 'treecover2010':
-            var thresh = Service.validateThresh(thresh, ctx)
-
-            var url = 'https://storage.googleapis.com/wri-public/treecover/2010/%thresh/%z/%y/%x.png'
-            ctx.params.urlTemplate = url.replace('%thresh', thresh)
-            break
-
           default:
-            ctx.throw(400, 'Wrong layer parameter supplied, should be loss, treecover, treecover2010 or glad');
+            ctx.throw(400, 'Wrong layer parameter supplied, should be loss or glad');
         }
 
         let image;
