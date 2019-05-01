@@ -3,108 +3,182 @@ const Canvas = require('canvas')
 const d3 = require('d3')
 const rp = require('request-promise');
 const dataMaxZoom = 12
+const assert = require('assert');
 
 class ImageService {
 
-  static pad (num) {
-  	var s = '00' + num;
-  	return s.substr(s.length - 3);
+  static pad(num) {
+    var s = '00' + num;
+    return s.substr(s.length - 3);
   }
 
-  static decodeGLAD (data) {
+  static decodeGLAD(data, ctx) {
+
+    let q = ctx.query
+
+    logger.debug("q.startDate: " + q.startDate)
+    logger.debug("q.endDate: " + q.endDate)
+    logger.debug("q.showUnconfirmed: " + q.showUnconfirmed)
+
+    let startDate = (q.startDate === undefined) ? 0 : ImageService.dateToInt(q.startDate, 0);
+    let endDate = (q.endDate === undefined) ? 9999 : ImageService.dateToInt(q.endDate, 9999);
+    let showUnconfirmed = (q.showUnconfirmed === undefined) ? false : ImageService.strToBool(q.showUnconfirmed);
+
+    logger.debug("startDate: " + startDate.toString());
+    logger.debug("endDate: " + endDate.toString());
+    logger.debug("conf: " + showUnconfirmed.toString());
+
+    for (let i = 0; i < data.length; i += 4) {
+
+      let band3_str = ImageService.pad(data[i + 2].toString());
+      let confidence = parseInt(band3_str[0]) - 1;
+      let total_days = data[i] * 255 + data[i + 1];
+
+      if ((total_days > 0 && total_days >= startDate && total_days <= endDate) && (confidence === 1 || showUnconfirmed)) {
+
+
+        let intensity_raw = parseInt(band3_str.slice(1, 3));
+        let intensity = intensity_raw * 50;
+
+        if (intensity > 255) {
+          intensity = 255;
+        }
+
+        data[i] = 220;
+        data[i + 1] = 102;
+        data[i + 2] = 153;
+        data[i + 3] = intensity;
+
+      } else {
+        data[i + 3] = 0;
+      }
+    }
+
+    return data;
+  }
+
+
+  static strToBool(boolStr) {
+    if (boolStr.toLowerCase() === "true" || boolStr.toLowerCase() === "yes" || boolStr === "1") return true;
+    else return false;
+
+  }
+
+
+  static dateToInt(yearStr, defaultvalue) {
+
+    function isLeapYear(year) {
+      return !(year % 4);
+    }
+
+    function dayOfYear() {
+      let dayCount = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+
+      let dayOfYear = dayCount[month] + day;
+      if (month > 1 && isLeapYear(year)) dayOfYear++;
+      return dayOfYear;
+    }
+
+    function baseDays() {
+      let leapYears = 0;
+      for (let i = baseYear - 1; i < year; i++) {
+        leapYears += isLeapYear(i) ? 1 : 0;
+      }
+
+      return (year - baseYear) * 365 + leapYears;
+    }
+
+    const baseYear = 2015;
+    let result = defaultvalue;
+
+
+    try {
+
+      logger.debug("yearStr: " + yearStr)
+
+      var year = parseInt(yearStr.substring(0, 4));
+      var month = parseInt(yearStr.substring(5, 7));
+      var day = parseInt(yearStr.substring(8, 10));
+
+
+      logger.debug("year: " + year.toString())
+      logger.debug("month: " + month.toString())
+      logger.debug("day: " + day.toString())
+
+      assert(year >= baseYear);
+      assert(month >= 1 && month <= 12);
+      assert(day >= 1 && day <= 31);
+
+      result = baseDays() + dayOfYear();
+
+    } catch (e) {
+      logger.debug(e);
+    }
+
+    return result;
+
+  }
+
+  static yearToInt(yearStr) {
+    return parseInt(yearStr.slice(-2));
+  }
+
+  static decodeLoss(data, ctx) {
+
+    var z = ctx.params.z
+    var q = ctx.query
+
+    var startYear = (q.startYear === undefined) ? 0 : ImageService.yearToInt(q.startYear);
+    var endYear = (q.endYear === undefined) ? 100 : ImageService.yearToInt(q.endYear);
+
+    var exp = z < 11 ? 0.3 + ((z - 3) / 20) : 1;
+
+    var myscale = d3.scalePow()
+      .exponent(exp)
+      .domain([0, 256])
+      .range([0, 256]);
 
     for (var i = 0; i < data.length; i += 4) {
 
-    	var total_days = data[i] * 255 + data[i + 1];
+      if (endYear >= data[i + 2] && data[i + 2] >= startYear) {
 
-      if  (total_days > 0) {
+        var intensity = data[i]
 
-      	var band3_str = ImageService.pad(data[i+2].toString());
-      	var confidence = parseInt(band3_str[0]) - 1
-      	var intensity_raw = parseInt(band3_str.slice(1, 3))
-      	var intensity = intensity_raw * 50
+        data[i] = 220
+        data[i + 1] = (72 - z) + 102 - (3 * myscale(intensity) / z);
+        data[i + 2] = (33 - z) + 153 - ((intensity) / z);
+        data[i + 3] = z < 13 ? myscale(intensity) : intensity;
 
-      	if (intensity > 255) {
-      	  intensity = 255
-      	}
-
-        if (confidence === 1) {
-          data[i] = 220
-    		  data[i + 1] = 102,
-    		  data[i + 2] = 153
-    		  data[i + 3] = intensity
-        } else {
-          data[i + 3] = 0
-        }
-
-      }  else {
+      } else {
         data[i + 3] = 0
       }
-  }
-
-  return data
-}
-
-static yearToInt (yearStr) {
-  return parseInt(yearStr.slice(-2));
-}
-
-static decodeLoss (data, ctx) {
-
-  var z = ctx.params.z
-  var q = ctx.query
-
-  var startYear = (q.startYear === undefined) ? 0 : ImageService.yearToInt(q.startYear);
-  var endYear = (q.endYear === undefined) ? 100 : ImageService.yearToInt(q.endYear);
-
-  var exp = z < 11 ? 0.3 + ((z - 3) / 20) : 1;
-
-  var myscale = d3.scalePow()
-          .exponent(exp)
-          .domain([0,256])
-          .range([0,256]);
-
-  for (var i = 0; i < data.length; i += 4) {
-
-    if (endYear >= data[i + 2] && data[i + 2] >= startYear) {
-
-      var intensity = data[i]
-
-      data[i] = 220
-      data[i + 1] = (72 - z) + 102 - (3 * myscale(intensity) / z);
-      data[i + 2] = (33 - z) + 153 - ((intensity) / z);
-      data[i + 3] = z < 13 ? myscale(intensity) : intensity;
-
-    }  else {
-      data[i + 3] = 0
     }
+
+    return data
   }
 
-return data
-}
-
-  static _getUrl (urlTemplate, coords) {
-	   return urlTemplate.replace('%z', coords[2]).replace('%x', coords[1]).replace('%y', coords[0]);
+  static _getUrl(urlTemplate, coords) {
+    return urlTemplate.replace('%z', coords[2]).replace('%x', coords[1]).replace('%y', coords[0]);
   }
 
-  static _getZoomSteps (z) {
-	   return z - dataMaxZoom;
+  static _getZoomSteps(z) {
+    return z - dataMaxZoom;
   }
 
-  static _getTileCoords (x, y, z) {
-  	if (z > dataMaxZoom) {
-  	  x = Math.floor(x / (Math.pow(2, z - dataMaxZoom)));
-  	  y = Math.floor(y / (Math.pow(2, z - dataMaxZoom)));
-  	  z = dataMaxZoom;
-  	} else {
-  	  y = (y > Math.pow(2, z) ? y % Math.pow(2, z) : y);
-  	  if (x >= Math.pow(2, z)) {
-  		x = x % Math.pow(2, z);
-  	  } else if (x < 0) {
-  		x = Math.pow(2, z) - Math.abs(x);
-  	  }
-  	}
-  	return [x, y, z];
+  static _getTileCoords(x, y, z) {
+    if (z > dataMaxZoom) {
+      x = Math.floor(x / (Math.pow(2, z - dataMaxZoom)));
+      y = Math.floor(y / (Math.pow(2, z - dataMaxZoom)));
+      z = dataMaxZoom;
+    } else {
+      y = (y > Math.pow(2, z) ? y % Math.pow(2, z) : y);
+      if (x >= Math.pow(2, z)) {
+        x = x % Math.pow(2, z);
+      } else if (x < 0) {
+        x = Math.pow(2, z) - Math.abs(x);
+      }
+    }
+    return [x, y, z];
   }
 
   static async getImage(reqCtx) {
@@ -112,11 +186,12 @@ return data
 
     var params = reqCtx.params
     var url = this._getUrl(params.urlTemplate, this._getTileCoords(params.x, params.y, params.z));
-    logger.debug(url)
-    const team = await rp({ url: url, encoding: null }, function(err, res, body) {
+
+    const team = await
+      rp({url: url, encoding: null}, function (err, res, body) {
         if (err) throw err;
 
-      }).then(function(body) {
+      }).then(function (body) {
 
         var img = new Canvas.Image;
 
@@ -134,24 +209,24 @@ return data
           ctx.mozImageSmoothingEnabled = false;
 
           // tile scaling
-          var srcX = (256 / Math.pow(2, zsteps) * (params.x % Math.pow(2, zsteps))) |0,
-            srcY = (256 / Math.pow(2, zsteps) * (params.y % Math.pow(2, zsteps))) |0,
-            srcW = (256 / Math.pow(2, zsteps)) |0,
-            srcH = (256 / Math.pow(2, zsteps)) |0;
+          var srcX = (256 / Math.pow(2, zsteps) * (params.x % Math.pow(2, zsteps))) | 0,
+            srcY = (256 / Math.pow(2, zsteps) * (params.y % Math.pow(2, zsteps))) | 0,
+            srcW = (256 / Math.pow(2, zsteps)) | 0,
+            srcH = (256 / Math.pow(2, zsteps)) | 0;
           ctx.drawImage(img, srcX, srcY, srcW, srcH, 0, 0, 256, 256);
         }
         var I = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
         if (params.layer === 'glad') {
-            ImageService.decodeGLAD(I.data, reqCtx)
-          } else {
-            ImageService.decodeLoss(I.data, reqCtx)
-          }
+          ImageService.decodeGLAD(I.data, reqCtx)
+        } else {
+          ImageService.decodeLoss(I.data, reqCtx)
+        }
 
         ctx.putImageData(I, 0, 0);
 
-    return canvas.toBuffer()
-  });
+        return canvas.toBuffer()
+      });
     return team;
   }
 }
