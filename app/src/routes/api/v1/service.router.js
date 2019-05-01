@@ -24,7 +24,7 @@ class Service {
           case 'loss':
             var thresh = Service.validateThresh(thresh, ctx)
 
-            var url = 'http://storage.googleapis.com/wri-public/Hansen17/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png'
+            var url = 'http://storage.googleapis.com/wri-public/Hansen18/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png'
             ctx.params.urlTemplate = url.replace('%thresh', thresh)
             break
 

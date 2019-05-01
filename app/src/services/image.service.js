@@ -112,7 +112,7 @@ return data
 
     var params = reqCtx.params
     var url = this._getUrl(params.urlTemplate, this._getTileCoords(params.x, params.y, params.z));
-
+    logger.debug(url)
     const team = await rp({ url: url, encoding: null }, function(err, res, body) {
         if (err) throw err;
 
