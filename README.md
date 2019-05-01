@@ -30,8 +30,8 @@ http://production-api.globalforestwatch.org/v1/true-color-tiles/glad/{z}/{x}/{y}
 
 | Parameter | Type | Description | 
 |-----------|------|-------------|
-|startDate | Date | Will filter out all alerts prior to given date. Use format YYYY-MM-DD (default 2015-01-01 |
-|endYear | Int | Will filter out all alerts after given date. Use format YYYY-MM-DD (default today |
+|startDate | Date | Will filter out all alerts prior to given date. Use format YYYY-MM-DD (default 2015-01-01) |
+|endYear | Int | Will filter out all alerts after given date. Use format YYYY-MM-DD (default today) |
 |showUnconfirmed | Bool | Show unconfirmed alerts (default False) |
 
 ### Running locally on OS X
