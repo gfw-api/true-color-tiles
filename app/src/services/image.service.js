@@ -16,17 +16,9 @@ class ImageService {
 
     let q = ctx.query
 
-    logger.debug("q.startDate: " + q.startDate)
-    logger.debug("q.endDate: " + q.endDate)
-    logger.debug("q.showUnconfirmed: " + q.showUnconfirmed)
-
     let startDate = (q.startDate === undefined) ? 0 : ImageService.dateToInt(q.startDate, 0);
     let endDate = (q.endDate === undefined) ? 9999 : ImageService.dateToInt(q.endDate, 9999);
     let showUnconfirmed = (q.showUnconfirmed === undefined) ? false : ImageService.strToBool(q.showUnconfirmed);
-
-    logger.debug("startDate: " + startDate.toString());
-    logger.debug("endDate: " + endDate.toString());
-    logger.debug("conf: " + showUnconfirmed.toString());
 
     for (let i = 0; i < data.length; i += 4) {
 
@@ -99,11 +91,6 @@ class ImageService {
       var year = parseInt(yearStr.substring(0, 4));
       var month = parseInt(yearStr.substring(5, 7));
       var day = parseInt(yearStr.substring(8, 10));
-
-
-      logger.debug("year: " + year.toString())
-      logger.debug("month: " + month.toString())
-      logger.debug("day: " + day.toString())
 
       assert(year >= baseYear);
       assert(month >= 1 && month <= 12);
