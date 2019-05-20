@@ -7,19 +7,27 @@
 
 http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}
 
+#### Include query parameters if you want to filter the loss data
+
+You can filter the tree cover loss year by year and tree cover density threshold:
+
+Append query parameters to the end of the loss URL like so:
+`http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}?thresh=75&startYear=2005&endYear=2008`
+
+The above (appending ?thresh=75&startYear=2005&endYear=2008 to the loss URL) will return only data from 2005 - 2008 (inclusive) with thresh >75, just like on the flagship website.
+
 `GLAD`:
 
 http://production-api.globalforestwatch.org/v1/true-color-tiles/glad/{level}/{col}/{row}
 
 #### Include query parameters if you want to filter the loss data
 
-Append them to the end of the loss URL like so:
-http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}?thresh=75&startYear=2005&endYear=2008
+You can filer GLAD alerts by date and confirmation status.
 
-The above (appending ?thresh=75&startYear=2005&endYear=2008 to the loss URL) will return only data from 2005 - 2008 (inclusive) with thresh >75, just like on the flagship website.
+Append query parameters to the end of the loss URL like so:
+`http://production-api.globalforestwatch.org/v1/true-color-tiles/glad/{level}/{col}/{row}?startDate=2018-01-01&endDate=2018-12-31&showUnconfirmed=false`
 
-Filtering by query parameter is not currently available for GLAD. If this is something you'd like me to implement, please let me know.
-
+This will show confirmed GLAD alerts for the year 2018
 
 #### Add to ArcGIS Online
 
