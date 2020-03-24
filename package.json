@@ -38,7 +38,7 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "bunyan": "^1.8.5",
-    "canvas": "1.6.7",
+    "canvas": "2.6.1",
     "config": "^1.21.0",
     "ct-register-microservice-node": "2.1.2",
     "d3": "^4.0.0",
