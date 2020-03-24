@@ -715,14 +715,12 @@ camelcase@^5.0.0, camelcase@^5.3.1:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
-canvas@1.6.7:
-  version "1.6.7"
-  resolved "https://registry.yarnpkg.com/canvas/-/canvas-1.6.7.tgz#2d8a04b453ec5d6510727cfc697e236dc4ae85dc"
-  integrity sha512-QLFCd9ca/Ww3s4vUf1KxmTX2QoYu8sZkSvXQ36RdbqNETDjn/I1H01ZEtWGGLcY0T7zNO6nsGoHX+0zrMy6JrQ==
+canvas@1.6.10:
+  version "1.6.10"
+  resolved "https://registry.yarnpkg.com/canvas/-/canvas-1.6.10.tgz#aa938354642e7d61479ae5a76373b3233d7bbac8"
+  integrity sha512-wd97ZrUfLYWjQ0qcJGiM44anXB+RviRu3DETpPIS4Sf7JzhP9PawwHdZOlx8sufcsRSeWuQe93qaCtwvK1jWXQ==
   dependencies:
     nan "^2.4.0"
-    parse-css-font "^2.0.2"
-    units-css "^0.4.0"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -1111,43 +1109,6 @@ cross-spawn@^7.0.0:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
-
-css-font-size-keywords@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/css-font-size-keywords/-/css-font-size-keywords-1.0.0.tgz#854875ace9aca6a8d2ee0d345a44aae9bb6db6cb"
-  integrity sha1-hUh1rOmspqjS7g00WkSq6btttss=
-
-css-font-stretch-keywords@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/css-font-stretch-keywords/-/css-font-stretch-keywords-1.0.1.tgz#50cee9b9ba031fb5c952d4723139f1e107b54b10"
-  integrity sha1-UM7puboDH7XJUtRyMTnx4Qe1SxA=
-
-css-font-style-keywords@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/css-font-style-keywords/-/css-font-style-keywords-1.0.1.tgz#5c3532813f63b4a1de954d13cea86ab4333409e4"
-  integrity sha1-XDUygT9jtKHelU0TzqhqtDM0CeQ=
-
-css-font-weight-keywords@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/css-font-weight-keywords/-/css-font-weight-keywords-1.0.0.tgz#9bc04671ac85bc724b574ef5d3ac96b0d604fd97"
-  integrity sha1-m8BGcayFvHJLV07106yWsNYE/Zc=
-
-css-global-keywords@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/css-global-keywords/-/css-global-keywords-1.0.1.tgz#72a9aea72796d019b1d2a3252de4e5aaa37e4a69"
-  integrity sha1-cqmupyeW0Bmx0qMlLeTlqqN+Smk=
-
-css-list-helpers@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/css-list-helpers/-/css-list-helpers-1.0.1.tgz#fff57192202db83240c41686f919e449a7024f7d"
-  integrity sha1-//VxkiAtuDJAxBaG+RnkSacCT30=
-  dependencies:
-    tcomb "^2.5.0"
-
-css-system-font-keywords@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/css-system-font-keywords/-/css-system-font-keywords-1.0.0.tgz#85c6f086aba4eb32c571a3086affc434b84823ed"
-  integrity sha1-hcbwhquk6zLFcaMIav/ENLhII+0=
 
 ct-register-microservice-node@^2.1.7:
   version "2.1.7"
@@ -3299,11 +3260,6 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
 
-isnumeric@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/isnumeric/-/isnumeric-0.2.0.tgz#a2347ba360de19e33d0ffd590fddf7755cbf2e64"
-  integrity sha1-ojR7o2DeGeM9D/1ZD933dVy/LmQ=
-
 isobject@^2.0.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/isobject/-/isobject-2.1.0.tgz#f065561096a3f1da2ef46272f815c840d87e0c89"
@@ -4592,21 +4548,6 @@ parent-module@^1.0.0:
   dependencies:
     callsites "^3.0.0"
 
-parse-css-font@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/parse-css-font/-/parse-css-font-2.0.2.tgz#7b60b060705a25a9b90b7f0ed493e5823248a652"
-  integrity sha1-e2CwYHBaJam5C38O1JPlgjJIplI=
-  dependencies:
-    css-font-size-keywords "^1.0.0"
-    css-font-stretch-keywords "^1.0.1"
-    css-font-style-keywords "^1.0.1"
-    css-font-weight-keywords "^1.0.0"
-    css-global-keywords "^1.0.1"
-    css-list-helpers "^1.0.1"
-    css-system-font-keywords "^1.0.0"
-    tcomb "^2.5.0"
-    unquote "^1.1.0"
-
 parse-filepath@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/parse-filepath/-/parse-filepath-1.0.2.tgz#a632127f53aaf3d15876f5872f3ffac763d6c891"
@@ -5779,11 +5720,6 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-tcomb@^2.5.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/tcomb/-/tcomb-2.7.0.tgz#10d62958041669a5d53567b9a4ee8cde22b1c2b0"
-  integrity sha1-ENYpWAQWaaXVNWe5pO6M3iKxwrA=
-
 test-exclude@^5.2.3:
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/test-exclude/-/test-exclude-5.2.3.tgz#c3d3e1e311eb7ee405e092dac10aefd09091eac0"
@@ -5969,23 +5905,10 @@ union-value@^1.0.0:
     is-extendable "^0.1.1"
     set-value "^2.0.1"
 
-units-css@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/units-css/-/units-css-0.4.0.tgz#d6228653a51983d7c16ff28f8b9dc3b1ffed3a07"
-  integrity sha1-1iKGU6UZg9fBb/KPi53Dsf/tOgc=
-  dependencies:
-    isnumeric "^0.2.0"
-    viewport-dimensions "^0.2.0"
-
 unpipe@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=
-
-unquote@^1.1.0:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/unquote/-/unquote-1.1.1.tgz#8fded7324ec6e88a0ff8b905e7c098cdc086d544"
-  integrity sha1-j97XMk7G6IoP+LkF58CYzcCG1UQ=
 
 unset-value@^1.0.0:
   version "1.0.0"
@@ -6068,11 +5991,6 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
-
-viewport-dimensions@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/viewport-dimensions/-/viewport-dimensions-0.2.0.tgz#de740747db5387fd1725f5175e91bac76afdf36c"
-  integrity sha1-3nQHR9tTh/0XJfUXXpG6x2r982w=
 
 websocket-driver@>=0.5.1:
   version "0.7.3"
