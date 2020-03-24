@@ -3,17 +3,15 @@ kind: Deployment
 metadata:
   namespace: gfw
   labels:
-    name: {name}
+    name: true-color-tiles
     app: gfw
-  name: {name}
+  name: true-color-tiles
 spec:
   revisionHistoryLimit: 2
   template:
     metadata:
-      annotations:
-        chaos.alpha.kubernetes.io/enabled: "true"
       labels:
-        name: {name}
+        name: true-color-tiles
     spec:
       tolerations:
       - key: "type"
@@ -30,14 +28,16 @@ spec:
                 values:
                 - gfw
       containers:
-      - name: {name}
-        image: vizzuality/{name}
+      - name: true-color-tiles
+        image: vizzuality/true-color-tiles
         imagePullPolicy: Always
         resources:
           requests:
-            memory: "128Mi"
+            cpu: "0.5"
+            memory: "256M"
           limits:
-            memory: "512Mi"
+            cpu: "1"
+            memory: "512M"
         args:
           - start
         env:
@@ -48,7 +48,7 @@ spec:
           - name: NODE_PATH
             value: app/src
           - name: LOCAL_URL
-            value: http://{name}.gfw.svc.cluster.local:3547
+            value: http://true-color-tiles.gfw.svc.cluster.local:3547
           - name: CT_URL
             valueFrom:
                 secretKeyRef:
@@ -72,5 +72,22 @@ spec:
 
         ports:
           - containerPort: 3547
+        readinessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /healthcheck
+            port: 3547
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+            scheme: HTTP
+            path: /healthcheck
+            port: 3547
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 15
 
       restartPolicy: Always

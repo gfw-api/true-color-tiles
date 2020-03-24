@@ -3,10 +3,10 @@ kind: Service
 metadata:
   namespace: gfw
   labels:
-    name: {name}
-  name: {name}
+    name: true-color-tiles
+  name: true-color-tiles
 spec:
   ports:
     - port: 3547
   selector:
-    name: {name}
+    name: true-color-tiles

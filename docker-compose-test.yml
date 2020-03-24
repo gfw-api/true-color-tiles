@@ -1,10 +1,15 @@
-test:
-  extends:
-    file: base.yml
-    service: base
-  container_name: true-color-tiles-test
-  environment:
-    NODE_ENV: test
-    CT_URL: http://mymachine:9000
-    API_VERSION: v1
-  command: test
+version: "3"
+services:
+  test:
+    build: .
+    ports:
+      - "3547"
+    container_name: true-color-tiles-test
+    environment:
+      PORT: 3547
+      NODE_PATH: app/src
+      NODE_ENV: test
+      CT_URL: http://mymachine:9000
+      API_VERSION: v1
+      CT_REGISTER_MODE: auto
+    command: test

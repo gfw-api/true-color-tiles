@@ -1,15 +1,18 @@
-develop:
-  extends:
-    file: base.yml
-    service: base
-  ports:
-    - "35740:35740"
-  environment:
-    CT_REGISTER_MODE: auto
-    CT_URL: http://mymachine:9000
-    LOCAL_URL: http://mymachine:3547
-    CT_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1pY3Jvc2VydmljZSIsImNyZWF0ZWRBdCI6IjIwMTYtMDktMTQifQ.IRCIRm1nfIQTfda_Wb6Pg-341zhV8soAgzw7dd5HxxQ
-    API_VERSION: v1
-  command: develop
-  volumes:
-    - ./app:/opt/true-color-tiles/app
+version: "3"
+services:
+  develop:
+    build: .
+    ports:
+      - "3547:3547"
+    container_name: true-color-tiles-develop
+    environment:
+      PORT: 3547
+      NODE_PATH: app/src
+      CT_REGISTER_MODE: auto
+      CT_URL: http://mymachine:9000
+      LOCAL_URL: http://mymachine:3547
+      CT_TOKEN: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im1pY3Jvc2VydmljZSIsImNyZWF0ZWRBdCI6IjIwMTYtMDktMTQifQ.IRCIRm1nfIQTfda_Wb6Pg-341zhV8soAgzw7dd5HxxQ
+      API_VERSION: v1
+    command: develop
+    volumes:
+      - ./app:/opt/true-color-tiles/app
