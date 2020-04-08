@@ -1,11 +1,13 @@
 {
-	"name": "true-color-tiles",
-	"endpoints": [{
-		"path": "/v1/true-color-tiles/:layer/:z/:x/:y",
-		"method": "GET",
-		"redirect": {
-			"method": "GET",
-			"path": "/api/v1/true-color-tiles/:layer/:z/:x/:y"
-		}
-	}]
+  "name": "true-color-tiles",
+  "endpoints": [
+    {
+      "path": "/v1/true-color-tiles/:layer/:z/:x/:y",
+      "method": "GET",
+      "redirect": {
+        "method": "GET",
+        "path": "/api/v1/true-color-tiles/:layer/:z/:x/:y"
+      }
+    }
+  ]
 }

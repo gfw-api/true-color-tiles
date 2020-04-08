@@ -10,53 +10,47 @@ const router = new Router({
 class Service {
 
     static async drawTile(ctx) {
-        const layer = ctx.params.layer
-        const z = ctx.params.z
-        const x = ctx.params.x
-        const y = ctx.params.y
+        const url = 'http://storage.googleapis.com/wri-public/Hansen18/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png';
 
         switch (ctx.params.layer) {
 
-          case 'glad':
-            ctx.params.urlTemplate = 'http://tiles.globalforestwatch.org/glad_prod/tiles/%z/%y/%x.png'
-            break
+            case 'glad':
+                ctx.params.urlTemplate = 'http://tiles.globalforestwatch.org/glad_prod/tiles/%z/%y/%x.png';
+                break;
 
-          case 'loss':
-            var thresh = Service.validateThresh(thresh, ctx)
+            case 'loss':
+                ctx.params.urlTemplate = url.replace('%thresh', Service.validateThresh(ctx));
+                break;
 
-            var url = 'http://storage.googleapis.com/wri-public/Hansen18/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png'
-            ctx.params.urlTemplate = url.replace('%thresh', thresh)
-            break
+            default:
+                ctx.throw(400, 'Wrong layer parameter supplied, should be loss or glad');
 
-          default:
-            ctx.throw(400, 'Wrong layer parameter supplied, should be loss or glad');
         }
 
         let image;
 
         try {
             image = await ImageService.getImage(ctx);
-            ctx.body = image
-          } catch (e) {
+            ctx.body = image;
+        } catch (e) {
             logger.error(e);
             ctx.throw(500, 'Error while retrieving image');
-          }
+        }
 
     }
 
-  static validateThresh(thresh, ctx) {
+    static validateThresh(ctx) {
+        const thresh = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
 
-    var thresh = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
+        const threshVals = [10, 15, 20, 25, 30, 50, 75];
+        const validThresh = threshVals.includes(parseInt(thresh, 10));
 
-    var threshVals = [10, 15, 20, 25, 30, 50, 75]
-    var validThresh = threshVals.includes(parseInt(thresh))
+        if (!validThresh) {
+            ctx.throw(`Thresh supplied not in ${threshVals}`);
+        }
 
-    if (!validThresh) {
-      ctx.throw('Thresh supplied not in ' + threshVals)
+        return thresh;
     }
-
-    return thresh
-  }
 
 }
 

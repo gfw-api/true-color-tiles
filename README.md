@@ -1,5 +1,8 @@
 # True Color Tiles Microservice
 
+[![Build Status](https://travis-ci.org/gfw-api/true-color-tiles.svg?branch=develop)](https://travis-ci.org/gfw-api/true-color-tiles)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/90a8a96a1b064267f42d/test_coverage)](https://codeclimate.com/github/gfw-api/true-color-tiles/test_coverage)
+
 This repository moves the dynamic pixel showing/hiding/recoloring magic from the GFW flagship site to the server-side, making true color loss and GLAD tiles more easily available.
 
 To demo this service, try adding the following to the map on http://geojson.io (Meta -> Add Map Layer):
@@ -31,7 +34,7 @@ http://production-api.globalforestwatch.org/v1/true-color-tiles/glad/{z}/{x}/{y}
 | Parameter | Type | Description | 
 |-----------|------|-------------|
 |startDate | Date | Will filter out all alerts prior to given date. Use format YYYY-MM-DD (default 2015-01-01) |
-|endYear | Int | Will filter out all alerts after given date. Use format YYYY-MM-DD (default today) |
+|endDate | Date | Will filter out all alerts after given date. Use format YYYY-MM-DD (default today) |
 |showUnconfirmed | Bool | Show unconfirmed alerts (default False) |
 
 ### Running locally on OS X
