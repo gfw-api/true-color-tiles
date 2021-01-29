@@ -49,7 +49,6 @@
     "bunyan": "^1.8.5",
     "canvas": "1.6.7",
     "config": "^1.21.0",
-    "ct-register-microservice-node": "^2.1.7",
     "d3": "^4.0.0",
     "jsonapi-serializer": "2.1.1",
     "kcors": "^2.1.1",
@@ -61,7 +60,8 @@
     "koa-simple-healthcheck": "^0.0.1",
     "koa-router": "^7.0.1",
     "request": "^2.79.0",
-    "request-promise": "^4.1.1"
+    "request-promise": "^4.1.1",
+    "rw-api-microservice-node": "^3.2.2"
   },
   "husky": {
     "hooks": {

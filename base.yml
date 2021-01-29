@@ -1,9 +1,0 @@
-base:
-  build: .
-  ports:
-    - "3547:3547"
-  container_name: true-color-tiles
-  environment:
-    PORT: 3547
-    NODE_PATH: app/src
-
