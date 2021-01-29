@@ -1,6 +1,6 @@
 # True Color Tiles Microservice
 
-[![Build Status](https://travis-ci.org/gfw-api/true-color-tiles.svg?branch=develop)](https://travis-ci.org/gfw-api/true-color-tiles)
+[![Build Status](https://travis-ci.com/gfw-api/true-color-tiles.svg?branch=dev)](https://travis-ci.com/gfw-api/true-color-tiles)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/90a8a96a1b064267f42d/test_coverage)](https://codeclimate.com/github/gfw-api/true-color-tiles/test_coverage)
 
 This repository moves the dynamic pixel showing/hiding/recoloring magic from the GFW flagship site to the server-side, making true color loss and GLAD tiles more easily available.
