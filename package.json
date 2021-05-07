@@ -47,7 +47,7 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "bunyan": "^1.8.5",
-    "canvas": "1.6.10",
+    "canvas": "1.6.11",
     "config": "^1.21.0",
     "d3": "^4.0.0",
     "jsonapi-serializer": "2.1.1",
