@@ -5,16 +5,20 @@
 
 `Loss`:
 
-http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}
+gfw-data-api: https://tiles.globalforestwatch.org/umd_tree_cover_loss/latest/dynamic/{z}/{x}/{y}
 
 #### Include query parameters if you want to filter the loss data
 
 You can filter the tree cover loss year by year and tree cover density threshold:
 
 Append query parameters to the end of the loss URL like so:
-`http://production-api.globalforestwatch.org/v1/true-color-tiles/loss/{level}/{col}/{row}?thresh=75&startYear=2005&endYear=2008`
 
-The above (appending ?thresh=75&startYear=2005&endYear=2008 to the loss URL) will return only data from 2005 - 2008 (inclusive) with thresh >75, just like on the flagship website.
+gfw-data-api: `https://tiles.globalforestwatch.org/umd_tree_cover_loss/latest/dynamic/{z}/{x}/{y}?start_year=2001&end_year=2020&tcd=30`
+
+The above (appending ?thresh=30&start_year=2001&end_year=2020 to the loss URL) will return  data from 2001 - 2020 (inclusive) with tree cover density threshold >30, just like on the flagship website. Use of `/latest/` will use the most recent version of the tree cover loss tile cache. 
+
+For more information on the `umd_tree_cover_loss` dynamic tile cache in the API, see https://tiles.globalforestwatch.org/#operation/umd_tree_cover_loss_raster_tile_umd_tree_cover_loss__version__dynamic__z___x___y__png_get.
+
 
 `GLAD`:
 
