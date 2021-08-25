@@ -24,6 +24,13 @@ For more information on the `umd_tree_cover_loss` dynamic tile cache in the API,
 
 http://production-api.globalforestwatch.org/v1/true-color-tiles/glad/{level}/{col}/{row}
 
+
+`Tree cover extent 2000`:
+
+There is currently no asset where tree cover density can be queried the way tree cover loss can be but there is a pre-filtered tree cover density asset:
+https://tiles.globalforestwatch.org/umd_tree_cover_density_2000/v1.8/tcd_30/{z}/{x}/{y}.png
+
+
 #### Include query parameters if you want to filter the loss data
 
 You can filer GLAD alerts by date and confirmation status.
@@ -35,7 +42,9 @@ This will show confirmed GLAD alerts for the year 2018
 
 #### Add to ArcGIS Online
 
-Go to `Add` --> `Layer From Web`, select `A Tile Layer` from the dropdown and enter one of the URL templates above.
+Click on "Map" on top tab of ArcGis Online.
+
+Go to `Add` --> `Layer From Web`, select `A Tile Layer` from the dropdown and enter one of the URL templates above. For tree cover extent, use the entire URL, including the PNG at the end.
 
 ![Step1](images/step1.png)
 
