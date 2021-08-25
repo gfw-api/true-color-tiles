@@ -57,7 +57,8 @@ Save map, then browse to it (ArcGIS menu  --> `Content`).
 
 #### Download the pkinfo file to view in ArcMap
 
-On the `Content` page, click on the name of the map to download. Then click the `Open in ArcGIS Desktop` link.
+On the `Content` page, click on the name of the map to download. Then click the `Open in ArcGIS Desktop` link. 
+Or on the `Content` page, click on the three dots next to the date, and click on `Open in ArcMap`. 
 
 ![Step3](images/step3.png)
 
