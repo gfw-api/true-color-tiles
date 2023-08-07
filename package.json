@@ -4,9 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_PATH=app/src node ./node_modules/.bin/grunt --gruntfile app/Gruntfile.js e2eTest",
-    "start": "NODE_PATH=app/src node app/index.js",
-    "coverage": "NODE_PATH=app/src node ./node_modules/.bin/grunt --gruntfile app/Gruntfile.js nyc"
+    "coverage": "nyc ts-mocha -b --project tsconfig.json -r tsconfig-paths/register --timeout 30000 'test/**/*.ts' --exit",
+    "test": "ts-mocha -b --project tsconfig.json -r tsconfig-paths/register --timeout 30000 'test/**/*.ts' --exit",
+    "start": "ts-node --files --project tsconfig.json -r tsconfig-paths/register src/index.ts",
+    "run:cron": "ts-node --files --project tsconfig.json -r tsconfig-paths/register src/cronRunner.ts",
+    "watch": "ts-node-dev --respawn --transpile-only --files --project tsconfig.json -r tsconfig-paths/register src/index.ts",
+    "build": "tsc --build",
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": {
@@ -15,60 +20,55 @@
     "url": "http://vizzuality.com/"
   },
   "engines": {
-    "node": "~11"
+    "node": "~20.4"
   },
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-datetime": "^1.5.0",
-    "chai-http": "^4.3.0",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-mocha": "^6.3.0",
-    "eslint-plugin-react": "^7.19.0",
-    "grunt": "^1.3.0",
-    "grunt-cli": "^1.3.2",
-    "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-jshint": "^2.1.0",
-    "grunt-contrib-watch": "^1.1.0",
-    "grunt-express-server": "^0.5.4",
-    "grunt-mocha-test": "^0.13.3",
-    "grunt-notify": "^0.4.5",
-    "grunt-simple-nyc": "^3.0.1",
-    "husky": "^4.2.3",
-    "lint-staged": "^10.0.8",
-    "load-grunt-tasks": "^5.1.0",
-    "mocha": "^7.1.1",
-    "nock": "^12.0.3",
-    "nyc": "^15.0.0"
+    "@types/bunyan": "^1.8.8",
+    "@types/config": "^3.3.0",
+    "@types/d3": "^4.13.12",
+    "@types/koa": "^2.13.8",
+    "@types/koa-logger": "^3.1.2",
+    "@types/koa-router": "^7.4.4",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.4.8",
+    "@types/request": "^2.48.8",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "chai": "^4.3.7",
+    "chai-datetime": "^1.8.0",
+    "chai-http": "^4.4.0",
+    "eslint": "^8.46.0",
+    "eslint-plugin-mocha": "^10.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "mocha": "^10.2.0",
+    "nock": "^13.3.2",
+    "nyc": "^15.1.0",
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0"
   },
   "dependencies": {
-    "bluebird": "^3.4.7",
+    "axios": "^1.4.0",
     "bunyan": "^1.8.5",
-    "canvas": "1.6.11",
+    "canvas": "2.11.2",
     "config": "^1.21.0",
     "d3": "^4.0.0",
     "jsonapi-serializer": "2.1.1",
-    "kcors": "^2.1.1",
-    "koa": "^2.0.0",
-    "koa-body": "^1.4.0",
-    "koa-convert": "^1.2.0",
-    "koa-logger": "^2.0.0",
-    "koa-mount": "2.0.0",
+    "koa": "^2.14.2",
+    "koa-body": "^6.0.1",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^12.0.0",
     "koa-simple-healthcheck": "^0.0.1",
-    "koa-router": "^7.0.1",
-    "request": "^2.79.0",
-    "request-promise": "^4.1.1",
-    "rw-api-microservice-node": "^3.4.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "request": "^2.88.2",
+    "rw-api-microservice-node": "5.1.0-rc.4",
+    "typescript": "^5.1.6"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.ts": [
+      "eslint --fix"
+    ]
   }
 }

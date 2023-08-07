@@ -1,10 +1,10 @@
-const nock = require('nock');
-const chai = require('chai');
-const { getTestServer } = require('./utils/test-server');
+import nock from 'nock';
+import chai from 'chai';
+import { getTestServer } from './utils/test-server';
 
 chai.should();
 
-let requester;
+let requester: ChaiHttp.Agent;
 
 describe('GET healthcheck', () => {
     before(async () => {

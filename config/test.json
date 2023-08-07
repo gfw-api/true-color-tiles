@@ -1,8 +1,8 @@
 {
-    "logger": {
-        "name": "true-color-tiles",
-        "level": "debug",
-        "toFile": false,
-        "dirLogFile": null
-    }
+  "logger": {
+    "name": "true-color-tiles",
+    "level": "debug",
+    "toFile": false,
+    "dirLogFile": null
+  }
 }

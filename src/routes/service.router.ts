@@ -1,16 +1,17 @@
-const Router = require('koa-router');
-const ImageService = require('services/image.service');
-const logger = require('logger');
+import Router from 'koa-router';
+import logger from 'logger';
+import { Context } from 'koa';
+import ImageService from "services/image.service";
 
 
-const router = new Router({
-    prefix: '/true-color-tiles',
+const router: Router = new Router({
+    prefix: '/api/v1/true-color-tiles',
 });
 
 class Service {
 
-    static async drawTile(ctx) {
-        const url = 'http://storage.googleapis.com/wri-public/Hansen18/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png';
+    static async drawTile(ctx: Context): Promise<void> {
+        const url: string = 'http://storage.googleapis.com/wri-public/Hansen18/tiles/hansen_world/v1/tc%thresh/%z/%y/%x.png';
 
         switch (ctx.params.layer) {
 
@@ -27,7 +28,7 @@ class Service {
 
         }
 
-        let image;
+        let image: Buffer;
 
         try {
             image = await ImageService.getImage(ctx);
@@ -39,14 +40,14 @@ class Service {
 
     }
 
-    static validateThresh(ctx) {
-        const thresh = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh;
+    static validateThresh(ctx: Context): string {
+        const thresh: string = (ctx.query.thresh === undefined) ? '30' : ctx.query.thresh as string;
 
-        const threshVals = [10, 15, 20, 25, 30, 50, 75];
-        const validThresh = threshVals.includes(parseInt(thresh, 10));
+        const threshValues: number[] = [10, 15, 20, 25, 30, 50, 75];
+        const validThresh: boolean = threshValues.includes(parseInt(thresh, 10));
 
         if (!validThresh) {
-            ctx.throw(`Thresh supplied not in ${threshVals}`);
+            ctx.throw(`Thresh supplied not in ${threshValues}`);
         }
 
         return thresh;
@@ -56,4 +57,4 @@ class Service {
 
 router.get('/:layer/:z/:x/:y', Service.drawTile);
 
-module.exports = router;
+export default router;
