@@ -4630,10 +4630,10 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-rw-api-microservice-node@5.1.0-rc.4:
-  version "5.1.0-rc.4"
-  resolved "https://registry.yarnpkg.com/rw-api-microservice-node/-/rw-api-microservice-node-5.1.0-rc.4.tgz#97a2e8eb5a0932a25ad36b83adefa00833401266"
-  integrity sha512-wT/6myBmDnA/Qr717/C478CRNyWc7BgL7d2/GwkBhTEhid3VA2rojijl8vO/8VeO20sDp9kNT+rDf0+tXM5SMQ==
+rw-api-microservice-node@5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/rw-api-microservice-node/-/rw-api-microservice-node-5.1.1.tgz#4a8f1855132dc567bc8e4ef65dd97e0122e58260"
+  integrity sha512-fpqs2Ni83KdTqIGvWbeNNUFsVGMLiN5gR4VxS9lC1x03/4kZ+Arz679tNvCoWfu6T8rSYu4RQhpheNJTQIcVoA==
   dependencies:
     "@aws-sdk/client-cloudwatch-logs" "^3.385.0"
     "@koa/cors" "^4.0.0"
